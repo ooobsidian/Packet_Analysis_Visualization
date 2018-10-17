@@ -6,6 +6,7 @@ import Tcp from '@/components/tcp'
 import Udp from '@/components/udp'
 import Arp from '@/components/arp'
 import Chart from '@/components/chart'
+import Ipv4 from '@/components/ipv4'
 
 Vue.use(Router)
 
@@ -21,6 +22,11 @@ export default new Router({
       path: '/nic',
       name: 'nic',
       component: Nic
+    },
+    {
+      path: '/ipv4',
+      name: 'ipv4',
+      component: Ipv4
     },
     {
       path: '/tcp',

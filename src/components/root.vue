@@ -4,7 +4,7 @@
       <div class="title">计算机网络第三次研讨</div>
       <div class="subtitle">Ipv4抓包分析</div>
       <div class="name">16121670-李瑞轩 16121666-徐文 16121689-台枫</div>
-      <Button class="button" type="primary" shape="circle" size="large" long to="/HelloWorld">开始</Button>
+      <Button class="button" type="primary" shape="circle" size="large" long to="/nic">开始</Button>
       <div class="date">2018.10.18</div>
     </div>
   </div>

@@ -2,12 +2,19 @@
   <div class="hello">
     <Split v-model="split3">
       <div slot="left" class="demo-split-pane">
-        <Button type="primary" size="large" long>获取网卡信息</Button>
-        <div style="display: flex;margin: 20px 0">
-          <Input v-model="value1" size="large" class="inputid" placeholder="输入序号"/>
-          <Button type="primary" size="large">获取</Button>
+        <div style="display: flex">
+          <Button type="success" style="margin-right: 30px;margin-left: 20%">开始</Button>
+          <Button type="error">停止</Button>
         </div>
-        <Button type="primary" size="large" long>图表展示</Button>
+        <Divider orientation="left">网卡信息</Divider>
+        <Button type="primary" size="large" long class="btn">获取网卡信息</Button>
+        <Divider orientation="left">Ipv4</Divider>
+        <Button type="primary" size="large" long class="btn" to="/tcp">获取TCP</Button>
+        <Button type="primary" size="large" long class="btn" to="/udp">获取UDP</Button>
+        <Divider orientation="left">ARP</Divider>
+        <Button type="primary" size="large" long class="btn" to="/arp">获取ARP</Button>
+        <Divider orientation="left">可视化</Divider>
+        <Button type="primary" size="large" long class="btn" to="/chart">图表展示</Button>
       </div>
       <div slot="right" class="demo-split-pane no-padding">
         <Split v-model="split4" mode="vertical">
@@ -26,7 +33,7 @@
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: 'nic',
     data() {
       return {
         split3: 0.15,
@@ -112,6 +119,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .btn {
+    margin: 10px 0;
+  }
+
   .hello {
     height: 100%;
   }

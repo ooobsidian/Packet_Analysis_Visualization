@@ -18,7 +18,7 @@
 
 <style>
   .pageWarpper {
-    width: 40%;
+    width: 45%;
     height: 100%;
     margin: 0 auto;
   }

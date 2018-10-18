@@ -20,9 +20,11 @@
         <div slot="top" class="demo-split-pane">
           <Table border :loading="loading" :columns="columns1" :data="data1" height="100"></Table>
         </div>
+        <div style="margin-left: 2%">
+          刷新
+          <img src="../assets/img/刷新.png" @click="Reload" style="width: 16px;height: 16px;"/>
+        </div>
         <ve-pie :data="chartData1" :settings="chartSettings"></ve-pie>
-        <ve-liquidfill :data="chartData2"></ve-liquidfill>
-        <ve-liquidfill :data="chartData3"></ve-liquidfill>
       </div>
 
     </Split>
@@ -124,10 +126,13 @@
       handleSwitch(val) {
         store.commit('CHANGE_STATE', val)
       },
+      Reload(){
+        this.init()
+      },
       init() {
         this.loading = true
         axios({
-          url: 'http://192.168.50.223:8081/api/count',
+          url: 'http://172.20.10.2:8081/api/count',
           method: 'get'
         }).then((res) => {
           console.log("2")

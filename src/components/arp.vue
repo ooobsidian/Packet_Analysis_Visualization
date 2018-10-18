@@ -19,7 +19,13 @@
       </div>
       <div slot="right" class="demo-split-pane no-padding">
         <div slot="top" class="demo-split-pane">
-          <Table stripe :columns="columns1" :data="data1" height="500"></Table>
+          <div style="display: flex;">
+            <div style="margin-left: 70%;">
+              表中共有{{this.dataLength}}条数据
+            </div>
+            <img src="../assets/img/刷新.png" @click="Reload" style="width: 16px;height: 16px;margin-left: 10%"/>
+          </div>
+          <Table stripe :loading="loading" :columns="columns1" :data="data1" height="500"></Table>
         </div>
       </div>
 
@@ -37,47 +43,49 @@
     store,
     data() {
       return {
+        loading: false,
+        dataLength:0,
         split3: 0.15,
         split4: 0.9,
-        columns1:[
+        columns1: [
           {
-            title:'硬件类型',
-            key:'hardtype'
+            title: '硬件类型',
+            key: 'hardtype'
           },
           {
-            title:'协议类型',
-            key:'prototype'
+            title: '协议类型',
+            key: 'prototype'
           },
           {
-            title:'硬件地址长度',
-            key:'hlen'
+            title: '硬件地址长度',
+            key: 'hlen'
           },
           {
-            title:'协议地址长度',
-            key:'plen'
+            title: '协议地址长度',
+            key: 'plen'
           },
           {
-            title:'标识',
-            key:'ident'
+            title: '标识',
+            key: 'ident'
           },
           {
-            title:'发送者硬件地址',
-            key:'senderHardaddr'
+            title: '发送者硬件地址',
+            key: 'senderHardaddr'
           },
           {
-            title:'发送者协议地址',
-            key:'senderProtoaddr'
+            title: '发送者协议地址',
+            key: 'senderProtoaddr'
           },
           {
-            title:'目标硬件地址',
-            key:'targetHardaddr'
+            title: '目标硬件地址',
+            key: 'targetHardaddr'
           },
           {
-            title:'目标协议地址',
-            key:'targetProtoaddr'
+            title: '目标协议地址',
+            key: 'targetProtoaddr'
           }
         ],
-        data1:[
+        data1: [
           {
             hardtype: 2,           //硬件类型
             prototype: 1,           //协议类型
@@ -108,6 +116,31 @@
       handleSwitch(val) {
         store.commit('CHANGE_STATE', val)
       },
+      created(){
+        this.getAllArp();
+      },
+      Reload() {
+        this.getAllArp();
+      },
+      getAllArp() {
+        this.loading = true;
+        axios({
+          url: 'http://172.20.10.2:8081/api/arp/list',
+          methods: 'get'
+        }).then((res) => {
+          this.dataLength=res.data.data.length
+          if (res.data.code === 'SUCCESS') {
+            this.data1 = res.data.data;
+          } else {
+            this.$Notice.error({
+              title: '抓取失败'
+            })
+          }
+          this.loading = false
+        }).catch((e) => {
+
+        });
+      }
     }
   }
 </script>

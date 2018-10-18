@@ -71,7 +71,7 @@
       getNicInfo() {
         this.loading = true,
           axios({
-            url: 'http://192.168.50.223:8081/api/network/list',
+            url: 'http://172.20.10.2:8081/api/network/list',
             method: 'get'
           }).then((res) => {
             if (res.data.code === 'SUCCESS') {

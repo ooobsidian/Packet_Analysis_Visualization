@@ -23,9 +23,9 @@
               <div style="margin-left: 10px;margin-bottom: 5px">
                 <a href="/ipv4">全部</a>
                 <Divider type="vertical"/>
-                <a href="/tcp" @click.native="getAllTcp">TCP</a>
+                <a href="/tcp">TCP</a>
                 <Divider type="vertical"/>
-                <a href="udp" @click.native="getAllUdp">UDP</a>
+                <a href="udp">UDP</a>
               </div>
               <div style="margin-left: 70%;">
                 表中共有{{this.dataLength}}条数据
@@ -126,7 +126,7 @@
                     console.log("#$#$")
                     console.log(this.protocol)
                     axios({
-                      url: 'http://192.168.50.223:8081/api/ipv4/tcpudp',
+                      url: 'http://172.20.10.2:8081/api/ipv4/tcpudp',
                       method: 'get',
                       params: {
                         protocol: this.protocol[params.index],
@@ -135,7 +135,6 @@
                     }).then((res) => {
                       if (res.data.code === 'SUCCESS') {
                         this.data2 = res.data.data
-                        console.log(res.data.data.data)
                       } else {
                         this.$Notice.error({
                           title: '查看失败'
@@ -213,7 +212,7 @@
       getAllIpv4() {
         this.loading = true
         axios({
-          url: 'http://192.168.50.223:8081/api/ipv4/list',
+          url: 'http://172.20.10.2:8081/api/ipv4/list',
           method: 'get'
         }).then((res) => {
           if (res.data.code === 'SUCCESS') {

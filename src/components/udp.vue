@@ -3,7 +3,7 @@
     <Split v-model="split3">
       <div slot="left" class="demo-split-pane">
         <Divider orientation="left">抓包开关</Divider>
-        <i-switch size="large" @on-change="handleSwitch" :value="switch1" style="margin-left: 35%">
+        <i-switch @on-change="handleSwitch" :value="switch1" size="large" style="margin-left: 35%">
           <span slot="open">开启</span>
           <span slot="close">停止</span>
         </i-switch>
@@ -19,17 +19,23 @@
       <div slot="right" class="demo-split-pane no-padding">
         <Split v-model="split4" mode="vertical">
           <div slot="top" class="demo-split-pane">
-            <div style="margin-left: 10px;margin-bottom: 5px">
-              <a href="/ipv4">全部</a>
-              <Divider type="vertical"/>
-              <a href="/tcp">TCP</a>
-              <Divider type="vertical"/>
-              <a href="udp">UDP</a>
+            <div style="display: flex;">
+              <div style="margin-left: 10px;margin-bottom: 5px">
+                <a href="/ipv4">全部</a>
+                <Divider type="vertical"/>
+                <a href="/tcp" @click.native="getAllTcp">TCP</a>
+                <Divider type="vertical"/>
+                <a href="udp" @click.native="getAllUdp">UDP</a>
+              </div>
+              <div style="margin-left: 70%;">
+                表中共有{{this.dataLength}}条数据
+              </div>
+              <img src="../assets/img/刷新.png" @click="Reload" style="width: 16px;height: 16px;margin-left: 10%"/>
             </div>
-            <Table stripe :columns="columns1" :data="data1" height="500"></Table>
+            <Table border :loading="loading" stripe :columns="columns1" :data="data1" height="500"></Table>
           </div>
           <div slot="bottom" class="demo-split-pane">
-            Bottom Pane
+            <Table border :columns="columns2" :data="data2"></Table>
           </div>
         </Split>
       </div>
@@ -108,48 +114,95 @@
                   type: 'primary',
                   size: 'small'
                 },
-                style: {
-                  marginRight: '5px'
+                style:{
+                  marginRight:'5px'
                 },
-                on: {
-                  click: () => {
+                on:{
+                  click:()=>{
                     this.$Message.info('123')
                   }
                 }
-              }, '查看详情')
+              },'查看详情')
             }
           }
         ],
-        data1: [
+        columns2: [
           {
-            version: 4,           //IP版本
-            rsvTos: 1,           //服务类型
-            priority: 1,           //优先级
-            length: 20,         //长度
-            ident: 1,             //标识
-            moreFrag: false,    //More Frag?
-            dontFrag: true,     //Don't Frag?
-            offset: 1,             //片偏移
-            hopLimit: 1,        //生存时间
-            protocol: 1,        //协议
-            srcIp: "xxxxx",   //源IP
-            dstIp: "xxxxx",   //目的IP
+            title: '源端口',
+            key: 'srcPort'
           },
           {
-            version: 4,           //IP版本
-            rsvTos: 1,           //服务类型
-            priority: 1,           //优先级
-            length: 20,         //长度
-            ident: 1,             //标识
-            moreFrag: false,    //More Frag?
-            dontFrag: true,     //Don't Frag?
-            offset: 1,             //片偏移
-            hopLimit: 1,        //生存时间
-            protocol: 1,        //协议
-            srcIp: "xxxxx",   //源IP
-            dstIp: "xxxxx",   //目的IP
+            title: '目的端口',
+            key: 'dstPort'
           },
-        ]
+          {
+            title: 'URG',
+            key: 'urg'
+          },
+          {
+            title: 'ACK',
+            key: 'ack'
+          },
+          {
+            title: 'PSH',
+            key: 'psh'
+          },
+          {
+            title: 'RST',
+            key: 'rst'
+          },
+          {
+            title: 'SYN',
+            key: 'syn'
+          },
+          {
+            title: 'FIN',
+            key: 'fin'
+          },
+          {
+            title: '窗口大小',
+            key: 'window'
+          },
+          {
+            title: '紧急指针',
+            key: 'urgentPointer'
+          },
+          {
+            title: '数据',
+            key: 'data'
+          }
+        ],
+        data1:[
+          // {
+          //   version: 4,           //IP版本
+          //   rsvTos: 1,           //服务类型
+          //   priority: 1,           //优先级
+          //   length: 20,         //长度
+          //   ident: 1,             //标识
+          //   moreFrag: false,    //More Frag?
+          //   dontFrag: true,     //Don't Frag?
+          //   offset: 1,             //片偏移
+          //   hopLimit: 1,        //生存时间
+          //   protocol: 1,        //协议
+          //   srcIp: "xxxxx",   //源IP
+          //   dstIp: "xxxxx"   //目的IP
+          // },
+          // {
+          //   version: 4,           //IP版本
+          //   rsvTos: 1,           //服务类型
+          //   priority: 1,           //优先级
+          //   length: 20,         //长度
+          //   ident: 1,             //标识
+          //   moreFrag: false,    //More Frag?
+          //   dontFrag: true,     //Don't Frag?
+          //   offset: 1,             //片偏移
+          //   hopLimit: 1,        //生存时间
+          //   protocol: 1,        //协议
+          //   srcIp: "xxxxx",   //源IP
+          //   dstIp: "xxxxx"   //目的IP
+          // },
+        ],
+        data2:[]
       }
     },
     computed: mapState(['switch1']),

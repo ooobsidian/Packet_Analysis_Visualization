@@ -136,40 +136,8 @@
             key: 'dstPort'
           },
           {
-            title: 'URG',
-            key: 'urg'
-          },
-          {
-            title: 'ACK',
-            key: 'ack'
-          },
-          {
-            title: 'PSH',
-            key: 'psh'
-          },
-          {
-            title: 'RST',
-            key: 'rst'
-          },
-          {
-            title: 'SYN',
-            key: 'syn'
-          },
-          {
-            title: 'FIN',
-            key: 'fin'
-          },
-          {
-            title: '窗口大小',
-            key: 'window'
-          },
-          {
-            title: '紧急指针',
-            key: 'urgentPointer'
-          },
-          {
-            title: '数据',
-            key: 'data'
+            title:'长度',
+            key:'length'
           }
         ],
         data1:[
